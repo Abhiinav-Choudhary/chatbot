@@ -26,11 +26,13 @@ const App = () => {
       body: JSON.stringify({ contents: history }),
     };
     try {
-      const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
+      const response = await fetch(import.meta.env.VITE_API_KEY, requestOptions);
      
-      
+      if (!import.meta.env.VITE_API_KEY) {
+        console.error('API URL is not defined!');
+      }
       const text = await response.text(); // always get raw text first
-      console.log(text);
+      // console.log(text);
       if (!text) {
         throw new Error(`Empty response from server (status: ${response.status})`);
       }
